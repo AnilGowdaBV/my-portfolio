@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import { projects } from "@/data/projects";
-import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 
 const ROTATION_RANGE = 20.5;
