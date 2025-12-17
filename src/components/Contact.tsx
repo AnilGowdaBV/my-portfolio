@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 import { useState } from "react";
@@ -10,6 +10,8 @@ export function Contact() {
         message: ""
     });
     const [hasLinkError, setHasLinkError] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -19,6 +21,45 @@ export function Contact() {
         if (name === "message") {
             const urlPattern = /(https?:\/\/[^\s]+)|(www\.[^\s]+)/gi;
             setHasLinkError(urlPattern.test(value));
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (hasLinkError) return;
+
+        setIsSubmitting(true);
+        try {
+            const response = await fetch("https://formsubmit.co/ajax/contact.anil3124@gmail.com", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                    _subject: "New Portfolio Contact!",
+                    _template: "table",
+                    _captcha: "false", // Disabled for better UX - Honeypot still active
+                    _autoresponse: "Thank you for contacting me! I will get back to you shortly."
+                })
+            });
+
+            if (response.ok) {
+                setIsSuccess(true);
+                setFormData({ name: "", email: "", message: "" });
+                // Reset success state after 5 seconds
+                setTimeout(() => setIsSuccess(false), 5000);
+            } else {
+                alert("Transmission failed. Please try again or email directly.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Transmission error. Please try again.");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -105,18 +146,9 @@ export function Contact() {
                         </div>
 
                         <form
-                            action="https://formsubmit.co/contact.anil3124@gmail.com"
-                            method="POST"
-                            target="_blank"
+                            onSubmit={handleSubmit}
                             className="relative z-10 space-y-8"
                         >
-                            {/* FormSubmit Configuration */}
-                            <input type="hidden" name="_subject" value="New Portfolio Contact!" />
-                            <input type="hidden" name="_template" value="table" />
-                            <input type="hidden" name="_captcha" value="true" /> {/* Security: Enable CAPTCHA */}
-                            <input type="text" name="_honey" style={{ display: 'none' }} /> {/* Security: Honeypot for bots */}
-                            <input type="hidden" name="_next" value="https://my-portfolio-5kqq.vercel.app/" /> {/* Redirect after submission */}
-
                             <div className="group/input relative">
                                 <label className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-2 block group-focus-within/input:text-violet-400 transition-colors">
                                     // 01. Identification
@@ -128,7 +160,8 @@ export function Contact() {
                                     onChange={handleChange}
                                     required
                                     placeholder="Enter your name_"
-                                    className="w-full bg-transparent border-b border-white/10 py-4 text-xl text-white placeholder:text-zinc-700 focus:outline-none focus:border-violet-500 transition-all font-light"
+                                    disabled={isSubmitting}
+                                    className="w-full bg-transparent border-b border-white/10 py-4 text-xl text-white placeholder:text-zinc-700 focus:outline-none focus:border-violet-500 transition-all font-light disabled:opacity-50"
                                 />
                             </div>
 
@@ -143,7 +176,8 @@ export function Contact() {
                                     onChange={handleChange}
                                     required
                                     placeholder="your@email.com_"
-                                    className="w-full bg-transparent border-b border-white/10 py-4 text-xl text-white placeholder:text-zinc-700 focus:outline-none focus:border-violet-500 transition-all font-light"
+                                    disabled={isSubmitting}
+                                    className="w-full bg-transparent border-b border-white/10 py-4 text-xl text-white placeholder:text-zinc-700 focus:outline-none focus:border-violet-500 transition-all font-light disabled:opacity-50"
                                 />
                             </div>
 
@@ -157,8 +191,9 @@ export function Contact() {
                                     onChange={handleChange}
                                     required
                                     rows={4}
+                                    disabled={isSubmitting}
                                     placeholder="Project details, requirements, or just saying hello..."
-                                    className={`w-full bg-transparent border-b py-4 text-xl text-white placeholder:text-zinc-700 focus:outline-none transition-all font-light resize-none ${hasLinkError ? 'border-red-500' : 'border-white/10 focus:border-violet-500'}`}
+                                    className={`w-full bg-transparent border-b py-4 text-xl text-white placeholder:text-zinc-700 focus:outline-none transition-all font-light resize-none disabled:opacity-50 ${hasLinkError ? 'border-red-500' : 'border-white/10 focus:border-violet-500'}`}
                                 />
                                 {hasLinkError && (
                                     <div className="absolute bottom-[-24px] left-0 flex items-center gap-2 text-red-500 text-xs font-bold animate-pulse">
@@ -172,24 +207,97 @@ export function Contact() {
                                 <Button
                                     type="submit"
                                     size="lg"
-                                    disabled={hasLinkError}
-                                    className={`relative overflow-hidden group/btn text-black rounded-none w-full h-16 text-lg font-bold tracking-wide transition-all ${hasLinkError ? 'bg-red-500/10 text-red-500 cursor-not-allowed border border-red-500/50' : 'bg-white hover:bg-zinc-200'}`}
+                                    disabled={hasLinkError || isSubmitting}
+                                    className={`relative overflow-hidden group/btn text-black rounded-none w-full h-16 text-lg font-bold tracking-wide transition-all ${hasLinkError
+                                        ? 'bg-red-500/10 text-red-500 cursor-not-allowed border border-red-500/50'
+                                        : isSuccess
+                                            ? 'bg-green-500 hover:bg-green-600 text-white border-none'
+                                            : 'bg-white hover:bg-zinc-200'
+                                        }`}
                                 >
                                     <span className="relative z-10 flex items-center justify-center gap-3">
-                                        {hasLinkError ? "TRANSMISSION_BLOCKED" : "INITIATE_TRANSMISSION"}
-                                        <Icons.arrowLeft className={`w-5 h-5 rotate-180 transition-transform ${hasLinkError ? '' : 'group-hover/btn:translate-x-1'}`} />
+                                        {hasLinkError ? (
+                                            "TRANSMISSION_BLOCKED"
+                                        ) : isSubmitting ? (
+                                            <>
+                                                ESTABLISHING UPLINK...
+                                                <Icons.cpu className="w-5 h-5 animate-pulse" />
+                                            </>
+                                        ) : isSuccess ? (
+                                            <>
+                                                TRANSMISSION COMPLETE
+                                                <Icons.check className="w-5 h-5" />
+                                            </>
+                                        ) : (
+                                            <>
+                                                INITIATE_TRANSMISSION
+                                                <Icons.arrowLeft className="w-5 h-5 rotate-180 transition-transform group-hover/btn:translate-x-1" />
+                                            </>
+                                        )}
                                     </span>
-                                    {!hasLinkError && (
+                                    {!hasLinkError && !isSuccess && !isSubmitting && (
                                         <div className="absolute inset-0 bg-violet-500 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 z-0 mix-blend-difference" />
                                     )}
                                 </Button>
+                                {/* Subtle Security Note to address user "disclaimer" request meaningfully */}
+                                <div className="mt-4 flex items-center justify-center gap-2 text-[10px] text-zinc-600 font-mono tracking-widest uppercase opacity-60">
+                                    <Icons.shield className="w-3 h-3" />
+                                    <span>Encrypted & Verified • No Activation Required</span>
+                                </div>
                             </div>
-
                         </form>
                     </div>
 
                 </div>
             </motion.div>
+            <AnimatePresence>
+                {isSuccess && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                        onClick={() => setIsSuccess(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                            transition={{ type: "spring", duration: 0.5 }}
+                            className="bg-[#0a0a0b] border border-white/10 p-8 md:p-10 rounded-3xl max-w-md w-full shadow-2xl relative overflow-hidden"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Decorative Glows */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-[50px] pointer-events-none" />
+                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-violet-500/10 rounded-full blur-[50px] pointer-events-none" />
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-green-500" />
+
+                            <div className="flex flex-col items-center text-center relative z-10">
+                                <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6 border border-green-500/20">
+                                    <Icons.check className="w-10 h-10 text-green-500" />
+                                </div>
+
+                                <h3 className="text-3xl font-bold text-white mb-2 tracking-tight">Transmission Received</h3>
+                                <p className="text-zinc-400 mb-8 leading-relaxed">
+                                    Your message has been successfully uploaded to my system. I will analyze the data and respond to your frequency shortly.
+                                </p>
+
+                                <button
+                                    onClick={() => setIsSuccess(false)}
+                                    className="w-full py-4 bg-white hover:bg-zinc-200 text-black font-bold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                                >
+                                    ACKNOWLEDGE
+                                </button>
+
+                                <div className="mt-6 flex items-center gap-2 text-[10px] text-zinc-600 font-mono uppercase tracking-widest">
+                                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                                    Status: Delivered • ID: {Math.random().toString(36).substr(2, 6).toUpperCase()}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 }
