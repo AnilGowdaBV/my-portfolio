@@ -9,7 +9,6 @@ export function Contact() {
         email: "",
         message: ""
     });
-    const [isHovered, setIsHovered] = useState(false);
     const [hasLinkError, setHasLinkError] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -36,8 +35,6 @@ export function Contact() {
                 transition={{ duration: 0.8, ease: "circOut" }}
                 viewport={{ once: true }}
                 className="max-w-6xl mx-auto relative group"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
             >
                 {/* Main Card Border/Glow Container */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 via-indigo-500 to-purple-600 rounded-[2rem] opacity-30 group-hover:opacity-60 blur-md transition-opacity duration-700" />
