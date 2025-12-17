@@ -48,7 +48,7 @@ function PrismCard({ category, index }: { category: typeof skills[0], index: num
                     </div>
 
                     {/* Skills Pills - Compact & Scrollable */}
-                    <div className="flex flex-wrap gap-1.5 overflow-y-auto pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:bg-zinc-700 [&::-webkit-scrollbar-track]:bg-transparent">
+                    <div className="flex flex-wrap gap-1.5 overflow-y-auto overflow-x-auto pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:bg-zinc-700 [&::-webkit-scrollbar-track]:bg-transparent">
                         {category.skills.map((skill, idx) => (
                             <span
                                 key={idx}

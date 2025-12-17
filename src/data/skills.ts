@@ -3,36 +3,36 @@ export const skills = [
     {
         title: "Programming",
         icon: "code",
-        skills: ["Python", "JavaScript"],
+        skills: ["Python", "JavaScript", "TypeScript"],
     },
     {
         title: "Frontend",
         icon: "layout",
-        skills: ["React.js", "HTML", "CSS"],
+        skills: ["React.js", "HTML", "CSS", "Hooks (useState, useEffect, useContext)", "Component Architecture", "Responsive UI Design", "ShadCN UI", "Tailwind CSS", "Axios"],
     },
     {
         title: "Backend",
         icon: "server",
-        skills: ["Nest.js", "Node.js", "Express"],
+        skills: ["Nest.js", "REST API Design", "Authentication & Authorization"],
     },
     {
         title: "Database",
         icon: "database",
-        skills: ["MySQL", "MySQL Workbench"],
+        skills: ["MySQL", "Database Design", "Relational Modeling"],
     },
     {
-        title: "AI Tools",
+        title: "AI-Assisted Engineering",
         icon: "brain",
-        skills: ["ChatGPT", "Cursor", "GitHub Copilot", "Bolt", "Windsurf"],
+        skills: ["Prompt-Driven Code Generation", "AI-Assisted Component & API Design", "AI-Assisted Debugging", "Code Refactoring & Optimization with AI"],
     },
     {
         title: "Developer Tools",
         icon: "wrench",
-        skills: ["Git", "VS Code", "XAMPP"],
+        skills: ["Git & GitHub (Version Control)", "VS Code", "Thunder Client (API Testing)", "MySQL Workbench (Database Management)"],
     },
     {
         title: "Strengths",
         icon: "rocket",
-        skills: ["Full Stack Development", "Prompt Engineering", "Problem Solving", "API Integration", "Automation Scripts"],
+        skills: ["Full-Stack Feature Development", "RESTful API Design & Integration", "Problem Solving & Debugging", "Clean & Modular Code Architecture", "AI-Assisted Engineering (Prompt-Driven Development)", "Rapid Prototyping & Iterative Improvement"],
     },
 ];
