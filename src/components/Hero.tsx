@@ -76,28 +76,29 @@ export function Hero() {
                             <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between text-sm">
 
                                 {/* Address */}
-                                <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors min-w-0">
+                                <div className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors min-w-0 cursor-default">
                                     <div className="p-2 shrink-0 rounded-lg bg-violet-500/10 text-violet-400">
                                         <Icons.mapPin className="w-4 h-4" />
                                     </div>
                                     <span className="truncate">Byagadihalli, Hassan - 573123</span>
-                                </a>
+                                </div>
 
                                 {/* Email */}
-                                <a href="mailto:anilgowda3103@gmail.com" className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors min-w-0">
+                                {/* Email */}
+                                <div className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors min-w-0 cursor-default">
                                     <div className="p-2 shrink-0 rounded-lg bg-violet-500/10 text-violet-400">
                                         <Icons.mail className="w-4 h-4" />
                                     </div>
-                                    <span className="truncate">anilgowda3103@gmail.com</span>
-                                </a>
+                                    <span className="truncate">contact.anil3124@gmail.com</span>
+                                </div>
 
                                 {/* Phone */}
-                                <a href="tel:+916360634863" className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors min-w-0">
+                                <div className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors min-w-0 cursor-default">
                                     <div className="p-2 shrink-0 rounded-lg bg-violet-500/10 text-violet-400">
                                         <Icons.phone className="w-4 h-4" />
                                     </div>
                                     <span className="whitespace-nowrap">+91 6360634863</span>
-                                </a>
+                                </div>
 
                                 {/* Socials */}
                                 <div className="flex items-center gap-2 border-t lg:border-t-0 lg:border-l border-white/5 pt-2 lg:pt-0 lg:pl-4 mt-2 lg:mt-0">
