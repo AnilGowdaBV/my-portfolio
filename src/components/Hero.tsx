@@ -5,15 +5,15 @@ import avatar from "@/assets/profile.jpg";
 
 export function Hero() {
     return (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16">
+        <section className="relative w-full min-h-[70vh] flex items-center justify-center overflow-x-hidden pt-28 pb-12">
             {/* Background Atmosphere */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[120px] mix-blend-screen" />
                 <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] mix-blend-screen" />
             </div>
 
-            <div className="container px-4 md:px-6 z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 md:gap-20 items-center">
+            <div className="w-full max-w-[95%] lg:max-w-[90%] mx-auto px-4 md:px-8 z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
                     {/* Left Column: Text Content */}
                     <motion.div
@@ -36,13 +36,13 @@ export function Hero() {
                             </motion.div>
 
                             <div className="space-y-2">
-                                <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-tight">
+                                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white leading-tight">
                                     ANIL <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-white to-violet-400 animate-gradient-x">B V</span>
                                 </h1>
-                                <p className="text-xl md:text-2xl font-medium text-violet-200/80">
+                                <p className="text-lg md:text-xl lg:text-2xl font-medium text-violet-200/80">
                                     Full Stack Developer & AI Enthusiast
                                 </p>
-                                <p className="text-base text-zinc-400 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                                <p className="text-sm md:text-base text-zinc-400 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                                     Crafting robust, scalable web applications and integrating intelligent AI solutions to solve real-world problems.
                                 </p>
                             </div>
@@ -71,9 +71,9 @@ export function Hero() {
                             </div>
                         </div>
 
-                        {/* Contact Info Card - Full Width Horizontal */}
+                        {/* Contact Info Card - Adaptive Grid */}
                         <div className="glass-card p-4 mx-auto lg:mx-0 w-full backdrop-blur-md border-white/5 bg-white/5 rounded-2xl relative group hover:border-violet-500/30 transition-colors">
-                            <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between text-sm">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
 
                                 {/* Address */}
                                 <div className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors min-w-0 cursor-default">
@@ -83,7 +83,6 @@ export function Hero() {
                                     <span className="truncate">Byagadihalli, Hassan - 573123</span>
                                 </div>
 
-                                {/* Email */}
                                 {/* Email */}
                                 <div className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors min-w-0 cursor-default">
                                     <div className="p-2 shrink-0 rounded-lg bg-violet-500/10 text-violet-400">
@@ -101,13 +100,18 @@ export function Hero() {
                                 </div>
 
                                 {/* Socials */}
-                                <div className="flex items-center gap-2 border-t lg:border-t-0 lg:border-l border-white/5 pt-2 lg:pt-0 lg:pl-4 mt-2 lg:mt-0">
-                                    <a href="https://www.linkedin.com/in/anil-bv-2704a8351" target="_blank" rel="noreferrer" className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors">
-                                        <Icons.linkedin className="w-4 h-4" />
-                                    </a>
-                                    <a href="https://www.google.com" target="_blank" rel="noreferrer" className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors">
-                                        <Icons.github className="w-4 h-4" />
-                                    </a>
+                                <div className="flex items-center gap-3 text-zinc-400 hover:text-white transition-colors min-w-0">
+                                    <div className="p-2 shrink-0 rounded-lg bg-violet-500/10 text-violet-400">
+                                        <Icons.share className="w-4 h-4" />
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <a href="https://www.linkedin.com/in/anil-bv-2704a8351" target="_blank" rel="noreferrer" className="p-1.5 rounded-md hover:bg-white/10 transition-colors">
+                                            <Icons.linkedin className="w-4 h-4" />
+                                        </a>
+                                        <a href="https://www.google.com" target="_blank" rel="noreferrer" className="p-1.5 rounded-md hover:bg-white/10 transition-colors">
+                                            <Icons.github className="w-4 h-4" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +139,7 @@ export function Hero() {
                         transition={{ duration: 0.8 }}
                         className="relative flex justify-center order-1 lg:order-2"
                     >
-                        <div className="relative w-[280px] h-[280px] md:w-[380px] md:h-[380px]">
+                        <div className="relative w-full max-w-[280px] md:max-w-[400px] aspect-square">
                             {/* Rotating Ring */}
                             <motion.div
                                 animate={{ rotate: 360 }}

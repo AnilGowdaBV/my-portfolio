@@ -33,7 +33,8 @@ import {
     ArrowLeft,
     ArrowRight,
     Download,
-    Eye
+    Eye,
+    Share2
 } from "lucide-react";
 
 export const Icons = {
@@ -70,5 +71,6 @@ export const Icons = {
     arrowLeft: ArrowLeft,
     arrowRight: ArrowRight,
     download: Download,
-    eye: Eye
+    eye: Eye,
+    share: Share2
 };

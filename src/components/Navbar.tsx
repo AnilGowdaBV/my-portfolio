@@ -14,6 +14,7 @@ export function Navbar() {
         { name: "About", href: "#about" },
         { name: "Skills", href: "#skills" },
         { name: "Projects", href: "#projects" },
+        { name: "Honors", href: "#certifications" },
         { name: "Experience", href: "#experience" },
         { name: "Contact", href: "#contact" },
     ];
@@ -58,8 +59,8 @@ export function Navbar() {
                         </div>
                     </motion.div>
 
-                    {/* Navigation Island - Links & Actions (Hidden on Mobile) */}
-                    <nav className="hidden md:flex items-center gap-1 pl-6 pr-2 py-2 rounded-full glass-card backdrop-blur-xl bg-black/40 border border-white/10 shadow-xl ml-4">
+                    {/* Navigation Island - Links & Actions (Hidden on Mobile/Tablet) */}
+                    <nav className="hidden lg:flex items-center gap-1 pl-6 pr-2 py-2 rounded-full glass-card backdrop-blur-xl bg-black/40 border border-white/10 shadow-xl ml-4">
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
@@ -80,11 +81,11 @@ export function Navbar() {
                         </Button>
                     </nav>
 
-                    {/* Mobile Menu Toggle (Visible only on Mobile) */}
+                    {/* Mobile Menu Toggle (Visible on Mobile/Tablet) */}
                     <Button
                         variant="outline"
                         size="icon"
-                        className="md:hidden rounded-full w-12 h-12 bg-black/40 border-white/10 backdrop-blur-md text-white hover:bg-white/10"
+                        className="lg:hidden rounded-full w-12 h-12 bg-black/40 border-white/10 backdrop-blur-md text-white hover:bg-white/10"
                         onClick={() => dispatch(toggleMobileMenu())}
                     >
                         {isMobileMenuOpen ? <Icons.close className="w-5 h-5" /> : <Icons.menu className="w-5 h-5" />}
@@ -99,7 +100,7 @@ export function Navbar() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-40 bg-black/80 backdrop-blur-2xl md:hidden flex flex-col items-center justify-center p-6"
+                        className="fixed inset-0 z-40 bg-black/80 backdrop-blur-2xl lg:hidden flex flex-col items-center justify-center p-6"
                     >
                         <nav className="flex flex-col items-center space-y-8 w-full max-w-sm">
                             {/* Mobile Brand for Context */}
