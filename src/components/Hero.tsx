@@ -105,7 +105,7 @@ export function Hero() {
                                     <a href="https://www.linkedin.com/in/anil-bv-2704a8351" target="_blank" rel="noreferrer" className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors">
                                         <Icons.linkedin className="w-4 h-4" />
                                     </a>
-                                    <a href="https://github.com/AnilGowdaBV" target="_blank" rel="noreferrer" className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors">
+                                    <a href="https://www.google.com" target="_blank" rel="noreferrer" className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors">
                                         <Icons.github className="w-4 h-4" />
                                     </a>
                                 </div>
