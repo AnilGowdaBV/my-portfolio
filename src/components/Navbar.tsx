@@ -4,10 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setMobileMenuOpen, toggleMobileMenu } from "@/store/uiSlice";
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const dispatch = useAppDispatch();
+    const isMobileMenuOpen = useAppSelector((state) => state.ui.isMobileMenuOpen);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -78,7 +81,7 @@ export function Navbar() {
                             variant="ghost"
                             size="icon"
                             className="md:hidden rounded-full"
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            onClick={() => dispatch(toggleMobileMenu())}
                             aria-label="Toggle Menu"
                         >
                             {isMobileMenuOpen ? (
@@ -107,7 +110,7 @@ export function Navbar() {
                                 transition={{ delay: idx * 0.1 }}
                                 href={link.href}
                                 className="text-2xl font-medium text-foreground hover:text-primary transition-colors"
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={() => dispatch(setMobileMenuOpen(false))}
                             >
                                 {link.name}
                             </motion.a>
@@ -118,7 +121,7 @@ export function Navbar() {
                             transition={{ delay: 0.3 }}
                         >
                             <Button size="lg" className="w-full rounded-full mt-4" asChild>
-                                <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Let's Talk</a>
+                                <a href="#contact" onClick={() => dispatch(setMobileMenuOpen(false))}>Let's Talk</a>
                             </Button>
                         </motion.div>
                     </nav>

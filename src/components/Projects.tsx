@@ -1,13 +1,14 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
-import { projects } from "@/data/projects";
+import { projects as staticProjects } from "@/data/projects";
 import { Icons } from "@/components/Icons";
+import { useProjects } from "@/hooks/useProjects";
 
 const ROTATION_RANGE = 20.5;
 const HALF_ROTATION_RANGE = 20.5 / 2;
 
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+const ProjectCard = ({ project, index }: { project: typeof staticProjects[0]; index: number }) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const x = useMotionValue(0);
@@ -109,6 +110,20 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
 };
 
 export function Projects() {
+    const { data: projectsData, isLoading } = useProjects();
+    const projects = projectsData || [];
+
+    if (isLoading) {
+        return (
+            <section id="projects" className="py-24 w-full text-zinc-100 overflow-hidden relative min-h-[500px] flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <Icons.cpu className="w-12 h-12 text-violet-500 animate-pulse" />
+                    <p className="text-zinc-400 font-mono text-sm tracking-widest">LOADING_SYSTEM_DATA...</p>
+                </div>
+            </section>
+        );
+    }
+
     return (
         <section id="projects" className="py-24 w-full text-zinc-100 overflow-hidden relative">
             <div className="container px-4 md:px-6 mx-auto">
@@ -125,14 +140,14 @@ export function Projects() {
                     <p className="text-zinc-400 max-w-lg mx-auto">
                         A selection of projects that push the boundaries of what's possible with modern web technologies.
                     </p>
-                </motion.div>
+                </motion.div >
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto perspective-1000">
                     {projects.map((project, index) => (
                         <ProjectCard key={index} project={project} index={index} />
                     ))}
                 </div>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 }

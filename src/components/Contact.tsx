@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 import { useState } from "react";
+import { useContactMutation } from "@/hooks/useContact";
 
 export function Contact() {
     const [formData, setFormData] = useState({
@@ -10,8 +11,8 @@ export function Contact() {
         message: ""
     });
     const [hasLinkError, setHasLinkError] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const { mutate: submitForm, isPending: isSubmitting } = useContactMutation();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -24,43 +25,22 @@ export function Contact() {
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (hasLinkError) return;
 
-        setIsSubmitting(true);
-        try {
-            const response = await fetch("https://formsubmit.co/ajax/contact.anil3124@gmail.com", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    message: formData.message,
-                    _subject: "New Portfolio Contact!",
-                    _template: "table",
-                    _captcha: "false", // Disabled for better UX - Honeypot still active
-                    _autoresponse: "Thank you for contacting me! I will get back to you shortly."
-                })
-            });
-
-            if (response.ok) {
+        submitForm(formData, {
+            onSuccess: () => {
                 setIsSuccess(true);
                 setFormData({ name: "", email: "", message: "" });
                 // Reset success state after 5 seconds
                 setTimeout(() => setIsSuccess(false), 5000);
-            } else {
-                alert("Transmission failed. Please try again or email directly.");
+            },
+            onError: (error) => {
+                console.error("Error:", error);
+                alert("Transmission error. Please try again.");
             }
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Transmission error. Please try again.");
-        } finally {
-            setIsSubmitting(false);
-        }
+        });
     };
 
     return (
