@@ -3,14 +3,18 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setMobileMenuOpen, toggleMobileMenu } from "@/store/uiSlice";
 
+
+
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const dispatch = useAppDispatch();
     const isMobileMenuOpen = useAppSelector((state) => state.ui.isMobileMenuOpen);
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -31,102 +35,133 @@ export function Navbar() {
     return (
         <>
             <motion.header
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.5 }}
+                className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center pointer-events-none pt-6 px-4"
             >
-                <nav
-                    className={cn(
-                        "flex items-center justify-between px-6 py-3 rounded-full transition-all duration-300",
-                        isScrolled
-                            ? "bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl shadow-lg border border-black/5 w-full max-w-4xl"
-                            : "bg-transparent w-full max-w-5xl"
-                    )}
-                >
-                    <a href="#" className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-md group-hover:scale-110 transition-transform">
-                            A
-                        </div>
-                        <span className={cn("font-bold text-lg tracking-tight transition-opacity",
-                            isScrolled ? "opacity-100" : "opacity-0 md:opacity-100"
-                        )}>
-                            Anil B V
-                        </span>
-                    </a>
+                <div className="flex items-center gap-3 w-full max-w-6xl mx-auto justify-between md:justify-center pointer-events-auto">
 
-                    {/* Desktop Nav */}
-                    <div className="hidden md:flex items-center space-x-1">
+                    {/* Brand Island - Identity */}
+                    <motion.div
+                        className="glass-card backdrop-blur-xl bg-black/40 border border-white/10 rounded-full pl-2 pr-6 py-2 flex items-center gap-4 shadow-xl pointer-events-auto cursor-pointer"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    >
+                        <div className="relative group cursor-pointer">
+                            {/* Unique Tech Logo */}
+                            <div className="w-12 h-12 rounded-[18px] bg-gradient-to-tr from-violet-600 via-fuchsia-600 to-indigo-600 p-[2px] relative overflow-hidden transition-transform duration-300 group-hover:rotate-6 shadow-lg shadow-violet-500/25">
+                                <div className="absolute inset-0 bg-white/30 blur-sm animate-pulse"></div>
+                                <div className="w-full h-full bg-black/90 backdrop-blur-md rounded-[16px] flex items-center justify-center relative z-10 overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-transparent opacity-50"></div>
+                                    <span className="text-sm font-black tracking-tighter bg-gradient-to-br from-white via-violet-200 to-indigo-200 bg-clip-text text-transparent transform group-hover:scale-110 transition-transform duration-300">
+                                        {'<A/>'}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col justify-center">
+                            <span className="font-bold text-base text-white leading-tight tracking-wide">
+                                ANIL B V
+                            </span>
+                            <span className="text-[10px] uppercase font-medium text-zinc-400 tracking-wider">
+                                Developer
+                            </span>
+                        </div>
+                    </motion.div>
+
+                    {/* Navigation Island - Links & Actions (Hidden on Mobile) */}
+                    <nav className="hidden md:flex items-center gap-1 pl-6 pr-2 py-2 rounded-full glass-card backdrop-blur-xl bg-black/40 border border-white/10 shadow-xl ml-4">
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-all"
+                                className="relative px-5 py-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors rounded-full hover:bg-white/5"
                             >
                                 {link.name}
                             </a>
                         ))}
-                    </div>
 
-                    <div className="flex items-center gap-2">
+                        <div className="w-px h-6 bg-white/10 mx-2"></div>
+
                         <Button
-                            className="rounded-full hidden md:flex bg-foreground text-background hover:bg-foreground/90 font-medium px-6"
-                            size="sm"
+                            className="rounded-full bg-white text-black hover:bg-zinc-200 font-semibold px-6 ml-2 h-10"
                             asChild
                         >
                             <a href="#contact">Let's Talk</a>
                         </Button>
+                    </nav>
 
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="md:hidden rounded-full"
-                            onClick={() => dispatch(toggleMobileMenu())}
-                            aria-label="Toggle Menu"
-                        >
-                            {isMobileMenuOpen ? (
-                                <Icons.close className="h-5 w-5" />
-                            ) : (
-                                <Icons.menu className="h-5 w-5" />
-                            )}
-                        </Button>
-                    </div>
-                </nav>
+                    {/* Mobile Menu Toggle (Visible only on Mobile) */}
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        className="md:hidden rounded-full w-12 h-12 bg-black/40 border-white/10 backdrop-blur-md text-white hover:bg-white/10"
+                        onClick={() => dispatch(toggleMobileMenu())}
+                    >
+                        {isMobileMenuOpen ? <Icons.close className="w-5 h-5" /> : <Icons.menu className="w-5 h-5" />}
+                    </Button>
+                </div>
             </motion.header>
 
             {/* Mobile Menu Overlay */}
-            {isMobileMenuOpen && (
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm pt-24 px-6 md:hidden"
-                >
-                    <nav className="flex flex-col space-y-6 text-center">
-                        {navLinks.map((link, idx) => (
-                            <motion.a
-                                key={link.name}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-40 bg-black/80 backdrop-blur-2xl md:hidden flex flex-col items-center justify-center p-6"
+                    >
+                        <nav className="flex flex-col items-center space-y-8 w-full max-w-sm">
+                            {/* Mobile Brand for Context */}
+                            <div className="flex flex-col items-center gap-4 mb-2">
+                                <div className="w-20 h-20 rounded-[2rem] bg-gradient-to-tr from-violet-600 via-fuchsia-600 to-indigo-600 p-[3px] relative overflow-hidden shadow-2xl">
+                                    <div className="w-full h-full bg-black/90 backdrop-blur-md rounded-[28px] flex items-center justify-center relative z-10 overflow-hidden">
+                                        <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-transparent opacity-50"></div>
+                                        <span className="text-2xl font-black tracking-tighter bg-gradient-to-br from-white via-violet-200 to-indigo-200 bg-clip-text text-transparent transform scale-110">
+                                            {'<A/>'}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="text-center">
+                                    <h2 className="text-2xl font-bold text-white">Anil B V</h2>
+                                    <p className="text-zinc-400 text-sm">Full Stack Developer</p>
+                                </div>
+                            </div>
+
+                            <div className="w-full h-px bg-white/10 my-4"></div>
+
+                            {navLinks.map((link, idx) => (
+                                <motion.a
+                                    key={link.name}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1 + idx * 0.1 }}
+                                    href={link.href}
+                                    className="text-3xl font-medium text-zinc-400 hover:text-white transition-colors"
+                                    onClick={() => dispatch(setMobileMenuOpen(false))}
+                                >
+                                    {link.name}
+                                </motion.a>
+                            ))}
+
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                href={link.href}
-                                className="text-2xl font-medium text-foreground hover:text-primary transition-colors"
-                                onClick={() => dispatch(setMobileMenuOpen(false))}
+                                transition={{ delay: 0.5 }}
+                                className="w-full pt-8"
                             >
-                                {link.name}
-                            </motion.a>
-                        ))}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                        >
-                            <Button size="lg" className="w-full rounded-full mt-4" asChild>
-                                <a href="#contact" onClick={() => dispatch(setMobileMenuOpen(false))}>Let's Talk</a>
-                            </Button>
-                        </motion.div>
-                    </nav>
-                </motion.div>
-            )}
+                                <Button size="lg" className="w-full rounded-full bg-white text-black font-bold h-14 text-lg" asChild>
+                                    <a href="#contact" onClick={() => dispatch(setMobileMenuOpen(false))}>Get in Touch</a>
+                                </Button>
+                            </motion.div>
+                        </nav>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 }
