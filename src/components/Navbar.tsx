@@ -1,8 +1,7 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
-import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setMobileMenuOpen, toggleMobileMenu } from "@/store/uiSlice";
@@ -10,19 +9,8 @@ import { setMobileMenuOpen, toggleMobileMenu } from "@/store/uiSlice";
 
 
 export function Navbar() {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const dispatch = useAppDispatch();
     const isMobileMenuOpen = useAppSelector((state) => state.ui.isMobileMenuOpen);
-
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
 
     const navLinks = [
         { name: "About", href: "#about" },
