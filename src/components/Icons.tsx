@@ -31,7 +31,9 @@ import {
 
     Folder,
     ArrowLeft,
-    Download
+    ArrowRight,
+    Download,
+    Eye
 } from "lucide-react";
 
 export const Icons = {
@@ -66,5 +68,7 @@ export const Icons = {
     layers: Layers,
     folder: Folder,
     arrowLeft: ArrowLeft,
-    download: Download
+    arrowRight: ArrowRight,
+    download: Download,
+    eye: Eye
 };

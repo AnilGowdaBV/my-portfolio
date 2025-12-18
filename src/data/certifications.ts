@@ -6,6 +6,14 @@ export interface Certification {
     type: "Achievement" | "Certification";
     description: string;
     link?: string;
+    file?: string;
+    subCertificates?: {
+        title: string;
+        date?: string;
+        description?: string;
+        image?: string;
+        file?: string; // Path to the local file (e.g., /certificates/python.pdf)
+    }[];
 }
 
 export const certifications: Certification[] = [
@@ -23,6 +31,7 @@ export const certifications: Certification[] = [
         date: "2024",
         type: "Achievement",
         description: "Secured 2nd runner-up in a competitive hands-on Internet of Things workshop.",
+        file: "/certificates/Anil.B.V iot.pdf"
     },
     {
         title: "10-Hour Innovation Hackathon",
@@ -53,7 +62,7 @@ export const certifications: Certification[] = [
         date: "2023",
         type: "Certification",
         description: "Mastered data visualzation techniques uses Matplotlib, Seaborn, and Folium.",
-        link: "https://www.linkedin.com/posts/anil-bv-2704a8351_datavisualization-python-datascience-activity-7301820881192783872-At1l?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFfQ4XQB5Y5gx7VyKs8CLg7aAQ8EAWm8isQ"
+        file: "/certificates/data visualization with python.pdf"
     },
     {
         title: "Cyber Security Analyst Simulation",
@@ -61,7 +70,7 @@ export const certifications: Certification[] = [
         date: "18-Feb-2025",
         type: "Certification",
         description: "Completed a job simulation involving threat analysis and security protocol implementation.",
-        link: "https://www.linkedin.com/posts/anil-bv-2704a8351_forage-certificate-activity-7297608453483642881-1ZMT?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFfQ4XQB5Y5gx7VyKs8CLg7aAQ8EAWm8isQ"
+        file: "/certificates/cybersecurity analyst.pdf"
     },
     {
         title: "TechSaksham Edunet Workshop",
@@ -69,13 +78,22 @@ export const certifications: Certification[] = [
         date: "2023",
         type: "Certification",
         description: "Intensive training on full-stack web technologies and cloud computing.",
-        link: "https://www.linkedin.com/posts/anil-bv-2704a8351_techsaksham-microsoft-sap-activity-7297659624046927873-B7jR?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFfQ4XQB5Y5gx7VyKs8CLg7aAQ8EAWm8isQ"
+        file: "/certificates/techsaksham.pdf"
     },
     {
         title: "Infosys Springboard Certifications",
         issuer: "Infosys",
-        date: "2022 - 2025",
+        date: "2024",
         type: "Certification",
         description: "Series of certifications in software engineering best practices and digital skills.",
+        subCertificates: [
+            { title: "Python Programming", date: "2024", description: "Foundational Python concepts and application.", file: "/certificates/Introduction to Python.pdf" },
+            { title: "Artificial Intelligence Foundation Certification", date: "2024", description: "Covered core AI fundamentals and machine learning basics", file: "/certificates/Artificial Intelligence Foundation Certification.pdf" },
+            { title: "Introduction to Artificial Intelligence", date: "2024", description: "Fundamental introduction to artificial intelligence concepts.", file: "/certificates/Introduction to Artificial Intelligence.pdf" },
+            { title: "Design Thinking", date: "2024", description: "Introduced to design thinking and user-centric problem solving.", file: "/certificates/Design Thinking.pdf" },
+            { title: "Deep Learning", date: "2024", description: "Overview of natural language processing fundamentals.", file: "/certificates/Introduction to Deep Learning.pdf" },
+            { title: "Introduction to Natural Language Processing", date: "2024", description: "Introduction to AI and Machine Learning concepts.", file: "/certificates/Introduction to Natural Language Processing.pdf" },
+            { title: "Tech AWS Solution Architect Certification", date: "2024", description: "Introduced to AWS architecture principles and cloud solution design", file: "/certificates/Tech AWS Solution Architect Certification.pdf" }
+        ]
     },
 ];
