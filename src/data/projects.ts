@@ -1,20 +1,6 @@
 
 export const projects = [
-    {
-        id: "accident-detection",
-        title: "AI-Powered Accident Detection System",
-        description: "An intelligent computer vision system acting as a digital first responder, detecting road accidents in real-time to save lives.",
-        details: "In an era where every second counts, the AI-Powered Accident Detection System stands as a vigilant guardian of our roadways. Leveraging the cutting-edge capabilities of Computer Vision and Deep Learning, this system transforms passive surveillance into proactive lifesaving intelligence. By continuously analyzing real-time video feeds, it perceives the chaotic dynamics of traffic—detecting collisions, abnormal vehicle behaviors, and sudden impact events with superhuman precision. Beyond mere detection, it bridges the critical gap between accident and assistance, instantly triggering alerts to emergency responders. This isn't just software; it's a digital first responder designed for smart cities, aiming to reduce fatalities and bring order to the unpredictable nature of road travel.",
-        features: [
-            "Real-time Video Analytics: Processing live feeds with low-latency computer vision algorithms.",
-            "Intelligent Incident Recognition: Distinguishing between normal traffic flow and critical anomaly patterns.",
-            "Automated Emergency Response: Instantaneous trigger mechanisms for alerting medical and police services.",
-            "Smart City Integration: Scalable architecture ready for deployment across urban surveillance networks."
-        ],
-        tech: ["Python", "OpenCV", "Video Analytics", "Deep Learning"],
-        link: "https://www.linkedin.com/in/anil-bv-2704a8351",
-        github: "https://www.google.com",
-    },
+
     {
         id: "usb-monitoring",
         title: "Real-Time USB Monitoring System",
